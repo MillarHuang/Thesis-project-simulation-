@@ -1,11 +1,7 @@
 ############################################################
 #Simulation algorithm proposed by Havercroft et al. (2012) #
 ############################################################
-
-#Inverse of logit function
-inv.logit = function(x){
-  exp(x)/(1+exp(x))
-}
+library(locfit)    #for expit():inverse logit function
 
 #Simulation function
 """
@@ -42,14 +38,14 @@ sim_algorithm = function(TT,k,gamma,theta,n){
     error = rnorm(1,0,20)
     L[1] = qgamma(U[1],shape = 3,scale = 154) + error
     #draw treatment decision(A_0)
-    prob = inv.logit(theta[1] + theta[3]*(L[1]-500))
+    prob = expit(theta[1] + theta[3]*(L[1]-500))
     A[1] = rbinom(n = 1,size = 1,prob = prob)
     #if treatment starts at time 0, then set T_init as 0
     if (A[1] == 1){
       T_init = 0
     }
     #calculate the hazard from a given MSM, to generate the binary failure indicator
-    hazard[1] = inv.logit(gamma[1]+gamma[3]*A[1])
+    hazard[1] = expit(gamma[1]+gamma[3]*A[1])
     if(hazard[1] >= U[1]){
       Y[1] = 1
     }else{
@@ -77,7 +73,7 @@ sim_algorithm = function(TT,k,gamma,theta,n){
           }
           #Once starts treatment, it will remain on treatment until failure or end of study
           if(A[t-1] == 0){
-            prob = inv.logit(theta[1] + theta[2]*(t-1) + theta[3]*(L[t]-500))
+            prob = expit(theta[1] + theta[2]*(t-1) + theta[3]*(L[t]-500))
             A[t] = rbinom(n = 1,size = 1,prob = prob)
           }else{
             A[t] = 1
@@ -89,7 +85,7 @@ sim_algorithm = function(TT,k,gamma,theta,n){
         }
         #compute the hazard to generate the binary failure indicator
         T_star = min(t-1,T_init)#if treatment hasn't start yet, T^* in the formula is equal to the present time
-        hazard[t] = inv.logit(gamma[1]+gamma[2]*((1-A[t])*(t-1)+A[t]*T_star)+gamma[3]*A[t]+gamma[4]*A[t]*((t-1)-T_star))
+        hazard[t] = expit(gamma[1]+gamma[2]*((1-A[t])*(t-1)+A[t]*T_star)+gamma[3]*A[t]+gamma[4]*A[t]*((t-1)-T_star))
         if( (1-prod(1-hazard)) >= U[1]){
           Y[t] = 1
           
