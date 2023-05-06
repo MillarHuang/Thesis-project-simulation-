@@ -1,21 +1,6 @@
 ############################################################
 #Simulation algorithm proposed by Havercroft et al. (2012) #
 ############################################################
-# A CD4 count is a blood test 
-# that measures the number of CD4 
-# cells in a sample of your blood. 
-# CD4 cells are a type of white blood 
-# cell. They are also called CD4 T lymphocytes or 
-# "helper T cells." That's because they help 
-# fight infection by triggering your immune system 
-# to destroy viruses, bacteria, and other germs that may make you sick.
-#A CD4 count is mostly used to check the health of your immune system if you are infected with HIV
-#HIV attacks and destroys CD4 cells.If you have HIV, a low CD4 count means that HIV has weakened your immune system.
-# AIDS is the most serious stage of an HIV infection. If you have AIDS, your CD4 count will be so low that you may develop serious infections from viruses, bacteria, or fungi that usually don't cause problems in healthy people.
-#In this situation, the patients are reasonable to be forced to start the treatment with HAART.
-#Normal CD4 count for healthy adults and teens: 500 to 1,200 cells per cubic millimeter; so below 500 cells per cubic millimeter can be considered as low CD4 count
-
-#ps: The patients in Swiss HIV Cohort Study were free of AIDS at baseline
 
 #Simulation function
 # """
